@@ -40,7 +40,7 @@ jobs:
             working-dir: .
             output-dir: build
             executable-name: sea
-            sea-config-path: test-app/sea-config.json
+            sea-config-path: sea-config.json
             node-path: /opt/hostedtoolcache/node/21.7.0/x64/bin/node
     
         - uses: actions/upload-artifact@v4
