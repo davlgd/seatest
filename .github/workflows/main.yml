@@ -4,6 +4,12 @@ on:
   push:
     branches: [ "main" ]
     paths: 'src/**'
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to deploy'
+        required: true
+        default: 'development'
 jobs:
     deploy:
       strategy:
