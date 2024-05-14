@@ -1,0 +1,45 @@
+name: Build SEA
+
+on:
+  push:
+    branches: [ "main" ]
+    paths: 'src/**'
+jobs:
+    deploy:
+      strategy:
+        matrix:
+          os: [ubuntu-latest]
+      runs-on: ${{ matrix.os }}
+      steps:
+        - name: Checkout
+          id: checkout
+          uses: actions/checkout@v4
+    
+        - name: Setup Node.js
+          id: setup-node
+          uses: actions/setup-node@v4
+          with:
+            node-version-file: .node-version
+            cache: npm
+    
+        - name: Find Node
+          id: find-node
+          run:
+            echo "node=$(node -e 'console.log(process.argv[0]);')" >>
+            "$GitHub_OUTPUT"
+    
+        - name: SEA
+          id: sea
+          uses: bryopsida/node-sea-action@v1
+          with:
+            working-dir: .
+            output-dir: build
+            executable-name: sea
+            sea-config-path: test-app/sea-config.json
+            node-path: ${{ steps.find-node.outputs.node }}
+    
+        - uses: actions/upload-artifact@v4
+          with:
+            name: ${{ matrix.os }}-sea
+            path: build/
+            if-no-files-found: error
