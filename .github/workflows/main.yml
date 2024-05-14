@@ -30,8 +30,7 @@ jobs:
         - name: Find Node
           id: find-node
           run:
-            echo "node=$(which node)" >>
-            "$GitHub_OUTPUT"
+            echo "node=$(which node)" >> "$GitHub_OUTPUT"
     
         - name: SEA
           id: sea
