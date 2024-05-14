@@ -29,9 +29,10 @@ jobs:
     
         - name: Find Node
           id: find-node
-          run:
-            echo "node=$(which node)" >> "$GitHub_OUTPUT"
-    
+          run: |
+            #echo "node=$(which node)" >> "$GitHub_OUTPUT"
+            which node
+            whereis node
         - name: SEA
           id: sea
           uses: bryopsida/node-sea-action@v1
