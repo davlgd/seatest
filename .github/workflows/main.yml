@@ -40,9 +40,9 @@ jobs:
           if: runner.os == 'Windows'
           run: |
             (Get-Command node).Source
-        - name: SEA (Unix)
+        - name: SEA (Linux)
           id: sea-unix
-          if: runner.os != 'Windows'
+          if: runner.os == 'Linux'
           uses: bryopsida/node-sea-action@v1
           with:
             working-dir: .
@@ -50,6 +50,16 @@ jobs:
             executable-name: sea
             sea-config-path: sea-config.json
             node-path: /opt/hostedtoolcache/node/21.7.0/x64/bin/node
+        - name: SEA (macOS)
+          id: sea-macos
+          if: runner.os == 'macos'
+          uses: bryopsida/node-sea-action@v1
+          with:
+            working-dir: .
+            output-dir: build
+            executable-name: sea
+            sea-config-path: sea-config.json
+            node-path: /Users/runner/hostedtoolcache/node/21.7.0/arm64/bin/node
         - name: SEA (Windows)
           id: sea-windows
           if: runner.os == 'Windows'
