@@ -28,7 +28,12 @@ jobs:
           uses: actions/setup-node@v4
           with:
             node-version: 21.7.0
-
+        - name: Display filename
+          run: |
+            echo "OS: ${{ matrix.os }}"
+            echo "Architecture: ${{ matrix.arch }}"
+            FILENAME="filename-${{ matrix.os }}-${{ matrix.arch }}.txt"
+            echo "Filename: $FILENAME"
         - name: Find Node (UNIX)
           id: find-node-unix
           if: runner.os == 'Linux'
