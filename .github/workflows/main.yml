@@ -87,6 +87,6 @@ jobs:
     
         - uses: actions/upload-artifact@v4
           with:
-            name: ${{ env.OS_NAME }}-${{ env.CPU_ARCH }}-sea
+            name: ${{ env.OS_NAME }}-${{ runner.arch }}-sea
             path: build/
             if-no-files-found: error
