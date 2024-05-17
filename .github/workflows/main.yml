@@ -50,8 +50,9 @@ jobs:
           if: runner.os == 'Windows'
           run: |
             (Get-Command node).Source
-        - name: SEA
-          id: sea
+        - name: SEA (Unix)
+          id: sea-unix
+          if: runner.os != 'Windows'
           uses: bryopsida/node-sea-action@v1
           with:
             working-dir: .
@@ -59,6 +60,17 @@ jobs:
             executable-name: sea
             sea-config-path: sea-config.json
             node-path: /opt/hostedtoolcache/node/21.7.0/x64/bin/node
+            
+        - name: SEA (Windows)
+          id: sea-windows
+          if: runner.os == 'Windows'
+          uses: bryopsida/node-sea-action@v1
+          with:
+            working-dir: .
+            output-dir: build
+            executable-name: sea
+            sea-config-path: sea-config.json
+            node-path: C:\hostedtoolcache\windows\node\21.7.0\x64\node.exe
     
         - uses: actions/upload-artifact@v4
           with:
