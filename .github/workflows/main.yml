@@ -38,16 +38,18 @@ jobs:
           with:
             node-version: 21.7.0
     
-        - name: Find Node
-          id: find-node
+        - name: Find Node (UNIX)
+          id: find-node-unix
+          if: runner.os == 'Linux'
           run: |
-            if [[ "${{ matrix.runner }}" == "windows-latest" ]]; then
-              where node
-            else
-              #echo "node=$(which node)" >> "$GitHub_OUTPUT"
-              which node
-              whereis node
-            fi
+            #echo "node=$(which node)" >> "$GitHub_OUTPUT"
+            which node
+            whereis node
+        - name: Find Node (Windows)
+          id: find-node-windows
+          if: runner.os == 'Windows'
+          run: |
+            where node
         - name: SEA
           id: sea
           uses: bryopsida/node-sea-action@v1
