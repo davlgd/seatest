@@ -18,15 +18,17 @@ jobs:
         matrix:
           include:
           - runner: ubuntu-latest
-            labels: Linux
+            labels: Linux-arm64
             arch: ARM64
           #- runner: self-hosted
           #  labels: macOS
           #  arch: ARM64
           - runner: ubuntu-latest
-            labels: Linux
+            labels: Linux-amd64
             arch: x86_64
           - runner: windows-latest
+            labels: windows-amd64
+            arch: x86_64
       steps:
         - name: Checkout
           id: checkout
@@ -38,19 +40,6 @@ jobs:
           with:
             node-version: 21.7.0
 
-        - name: Set up environment variables
-          id: vars
-          run: |
-            echo "OS_NAME=${{ matrix.runner }}" >> $GITHUB_ENV
-            unameOut="$(uname -m)"
-            if [ "$unameOut" == "x86_64" ]; then
-              echo "CPU_ARCH=amd64" >> $GITHUB_ENV
-            elif [ "$unameOut" == "aarch64" ]; then
-              echo "CPU_ARCH=arm64" >> $GITHUB_ENV
-            else
-              echo "CPU_ARCH=$unameOut" >> $GITHUB_ENV
-            fi
-          shell: bash
         - name: Find Node (UNIX)
           id: find-node-unix
           if: runner.os == 'Linux'
@@ -87,6 +76,6 @@ jobs:
     
         - uses: actions/upload-artifact@v4
           with:
-            name: ${{ env.OS_NAME }}-${{ runner.arch }}-sea
+            name: ${{ runner.os }}-${{ runner.arch }}-sea
             path: build/
             if-no-files-found: error
