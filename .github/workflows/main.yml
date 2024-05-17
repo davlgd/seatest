@@ -65,6 +65,6 @@ jobs:
     
         - uses: actions/upload-artifact@v4
           with:
-            name: ${{ runner.os }}-${{ runner.labels }}-sea
+            name: ${{ runner.os }}-${{ runner.arch }}-sea
             path: build/
             if-no-files-found: error
