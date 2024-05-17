@@ -62,6 +62,6 @@ jobs:
     
         - uses: actions/upload-artifact@v4
           with:
-            name: ${{ matrix.runner }}-sea
+            name: ${{ env.OS_NAME }}-${{ env.ARCH }}-sea
             path: build/
             if-no-files-found: error
