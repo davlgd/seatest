@@ -12,10 +12,20 @@ on:
         default: 'development'
 jobs:
     deploy:
+      runs-on: ${{ matrix.runner }}
       strategy:
         matrix:
-          os: [ubuntu-latest]
-      runs-on: ${{ matrix.os }}
+          include:
+          - runner: self-hosted
+            labels: Linux
+            arch: ARM64
+          - runner: self-hosted
+            labels: macOS
+            arch: ARM64
+          - runner: ubuntu-latest
+            labels: Linux
+            arch: x86_64
+          - runner: windows-latest
       steps:
         - name: Checkout
           id: checkout
@@ -45,6 +55,6 @@ jobs:
     
         - uses: actions/upload-artifact@v4
           with:
-            name: ${{ matrix.os }}-sea
+            name: ${{ matrix.runner }}-sea
             path: build/
             if-no-files-found: error
