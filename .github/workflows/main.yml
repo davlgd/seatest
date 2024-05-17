@@ -20,9 +20,9 @@ jobs:
           - runner: self-hosted
             labels: Linux
             arch: ARM64
-          - runner: self-hosted
-            labels: macOS
-            arch: ARM64
+          #- runner: self-hosted
+          #  labels: macOS
+          #  arch: ARM64
           - runner: ubuntu-latest
             labels: Linux
             arch: x86_64
@@ -41,9 +41,13 @@ jobs:
         - name: Find Node
           id: find-node
           run: |
-            #echo "node=$(which node)" >> "$GitHub_OUTPUT"
-            which node
-            whereis node
+            if [[ "${{ matrix.runner }}" == "windows-latest" ]]; then
+              where node
+            else
+              #echo "node=$(which node)" >> "$GitHub_OUTPUT"
+              which node
+              whereis node
+            fi
         - name: SEA
           id: sea
           uses: bryopsida/node-sea-action@v1
