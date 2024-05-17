@@ -41,7 +41,7 @@ jobs:
         - name: Set up environment variables
           id: vars
           run: |
-            echo "OS_NAME=${{ matrix.os }}" >> $GITHUB_ENV
+            echo "OS_NAME=${{ matrix.runner }}" >> $GITHUB_ENV
             unameOut="$(uname -m)"
             if [ "$unameOut" == "x86_64" ]; then
               echo "CPU_ARCH=amd64" >> $GITHUB_ENV
