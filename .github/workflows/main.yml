@@ -49,7 +49,7 @@ jobs:
           id: find-node-windows
           if: runner.os == 'Windows'
           run: |
-            Get-Command node
+            (Get-Command node).Source
         - name: SEA
           id: sea
           uses: bryopsida/node-sea-action@v1
