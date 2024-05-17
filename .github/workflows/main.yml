@@ -49,7 +49,7 @@ jobs:
           id: find-node-windows
           if: runner.os == 'Windows'
           run: |
-            where node
+            pwsh -command "where node; echo 'Node.js is located at: ' $(where node)"
         - name: SEA
           id: sea
           uses: bryopsida/node-sea-action@v1
